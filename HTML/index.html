@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>File Upload</title>
 </head>
 <body>
-    
+    <h2>Upload a File</h2>
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <div id="response"></div>
+    <script>
+        const form = document.getElementById('upload-form');
+        const responseDiv = document.getElementById('response');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(message => {
+                responseDiv.textContent = message;
+            });
+        });
+    </script>
 </body>
 </html>
