@@ -1,17 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>File Upload</title>
+    <title>Jobs for Freshers - Bank Consultant</title>
+    <style>
+        body {
+            background-color: powderblue;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #job-description {
+            width: 50%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        #response {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        select, input[type="file"], input[type="submit"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Upload a File</h2>
-    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    <div id="response"></div>
+    <div id="job-description">
+        <h1>Jobs for Freshers - Bank Consultant</h1>
+        <h2>Job Description:</h2>
+        <p>Bank consultants typically have a wide range of responsibilities, which can include:</p>
+        <ul>
+            <li>Recommending new strategies for improving customer service or increasing revenue from existing products or services</li>
+            <li>Reviewing financial statements to assess the health of a company’s finances</li>
+            <li>Interviewing clients to obtain information about their financial goals and needs</li>
+        </ul>
+        <h2>Requirements:</h2>
+        <p><strong>Education:</strong> A minimum of a bachelor’s degree is often a requirement to become a bank consultant.</p>
+        <p><strong>Training & Experience:</strong> Bank consultants typically receive on-the-job training from their new employer.</p>
+        <p><strong>Certifications & Licenses:</strong> Bank consultants need to obtain several certifications to show their expertise in the banking industry.</p>
+        <h2>Skills:</h2>
+        <p>Communication skills, technical knowledge, and problem-solving skills</p>
+        <form action="/apply" method="post" enctype="multipart/form-data">
+            <label for="candidate-name">1) Name of the Candidate:</label>
+            <input type="text" id="candidate-name" name="candidate-name" required>
+            <label for="degree-completed">2) Degree Completed:</label>
+            <select id="degree-completed" name="degree-completed" required>
+                <option value="Bachelors">Bachelor's</option>
+                <option value="Masters">Master's</option>
+            </select>
+            <label for="file">Upload Resume (PDF only):</label>
+            <input type="file" name="resume" accept=".pdf" required>
+            <label for="cover-letter">Cover Letter:</label>
+            <textarea id="cover-letter" name="cover-letter" rows="4" required></textarea>
+            <input type="submit" value="Apply Now">
+        </form>
+        <div id="response"></div>
+    </div>
     <script>
-        const form = document.getElementById('upload-form');
+        const form = document.querySelector('form');
         const responseDiv = document.getElementById('response');
 
         form.addEventListener('submit', function (e) {
@@ -19,7 +83,7 @@
 
             const formData = new FormData(form);
 
-            fetch('/upload', {
+            fetch('/apply', {
                 method: 'POST',
                 body: formData
             })
