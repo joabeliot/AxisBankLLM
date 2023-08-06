@@ -1,22 +1,34 @@
+import os
 from flask import Flask, request, render_template
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Display the HTML form
+    return render_template('index.html')
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return 'No file part'
+@app.route('/submit', methods=['POST'])
+def submit():
+    job_description = request.form['job_description']
+    cv_files = request.files.getlist('cv_files')
+    
+    # Save job description to the database and process CVs
+    for cv_file in cv_files:
+        if cv_file.filename.endswith('.pdf'):
+            # Replace "path/to/target/folder/" with the actual target folder path
+            target_folder_path = "C:/Users/YourUsername/Documents/PDF_Files/"
+            # or target_folder_path = "/Users/YourUsername/Documents/PDF_Files/"
+            
+            # Save the PDF file to the target folder using cv_file.save()
+            file_path = os.path.join(target_folder_path, cv_file.filename)
+            cv_file.save(file_path)
+            
+            # Implement CV ranking algorithm and shortlist the best candidates
+            # Send email notifications to the shortlisted candidates
+        else:
+            return "Only PDF files are allowed for CV submission!"
+    
+    return "CVs submitted successfully!"
 
-    file = request.files['file']
-    if file.filename == '':
-        return 'No selected file'
-
-    file.save('uploads/' + file.filename)
-    return 'File uploaded successfully'
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if _name_ == '_main_':
+    app.run()
