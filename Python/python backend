@@ -16,7 +16,7 @@ def submit():
     for cv_file in cv_files:
         if cv_file.filename.endswith('.pdf'):
             # Replace "path/to/target/folder/" with the actual target folder path
-            target_folder_path = "C:/Users/YourUsername/Documents/PDF_Files/"
+            target_folder_path = "Python/pdf collector"
             # or target_folder_path = "/Users/YourUsername/Documents/PDF_Files/"
             
             # Save the PDF file to the target folder using cv_file.save()
